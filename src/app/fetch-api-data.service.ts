@@ -5,7 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 
-const apiUrl = 'https://my-flix-db-975de3fb6719.herokuapp.com/';
+const apiUrl = 'https://my-flix-db-975de3fb6719.herokuapp.com';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +39,7 @@ export class UserRegistrationService {
 
   //User login
   public userLogin(userDetails: any): Observable<any> {
-    return this.http.post<any>(apiUrl + `login?Username=${userDetails.username}&Password=${userDetails.password}`, userDetails)
+    return this.http.post<any>(apiUrl + '/login?Username=' + userDetails.Username + '&Password=' + userDetails.Password, userDetails)
     .pipe(
       map(this.extractResponseData),
       catchError(this.handleError)
