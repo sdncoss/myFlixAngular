@@ -9,12 +9,17 @@
 // Be sure that you only ever include this mixin once!
 @include mat.core();
 
+
 // Define the theme object.
 $myFlix-client-Angular-theme: mat.define-theme((
   color: (
     theme-type: light,
-    primary: mat.$azure-palette,
-    tertiary: mat.$blue-palette,
+    primary: mat.$rose-palette,
+    tertiary: mat.$spring-green-palette,
+  ),
+  typography: (
+    brand-family: 'Comic Sans',
+    bold-weight: 900
   ),
   density: (
     scale: 0,
@@ -35,6 +40,9 @@ $myFlix-client-Angular-theme: mat.define-theme((
 // Comment out the line below if you want to use the deprecated `color` inputs.
 // @include mat.color-variants-backwards-compatibility($myFlix-client-Angular-theme);
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; text-align: center; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -38,7 +38,7 @@ registerUser(): void {
      });
     }, (result) => {
       console.log("created user failed: ", result)
-      this.snackBar.open("User created failed.", 'OK', {
+      this.snackBar.open(`User created failed: ${result.message}`, 'OK', {
         duration: 2000
       });
     });
