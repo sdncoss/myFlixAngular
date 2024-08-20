@@ -1,0 +1,13 @@
+<mat-card class="container">
+  <mat-card-header class="card-header">
+    <mat-card-title>{{ genre.Name }}</mat-card-title>
+  </mat-card-header>
+  <mat-dialog-content>
+    <p><strong>Description:</strong> {{ genre.Description }}</p>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button (click)="closeDialog()">Close</button>
+  </mat-dialog-actions>
+
+</mat-card>

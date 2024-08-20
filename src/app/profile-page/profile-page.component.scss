@@ -2,9 +2,16 @@ nav {
     padding: 10px;
 }
 
-.movie-image {
-  height: 200px;
+.delete-button, .update-form {
+    padding: 10px;
 }
+
+.movie-image {
+    height: 100%;
+    width: 100px;
+    padding: 20px;
+}
+
 .movie-grid {
     display: flex;
     flex-wrap: wrap;
@@ -16,17 +23,4 @@ nav {
     flex: 1 1 calc(33.333% - 16px); /* Adjust the width of each card */
     box-sizing: border-box;
     margin-bottom: 16px;
-  }
-
-  .favorite {
-    color: pink; /* Color when favorited */
-  }
-  
-  .not-favorite {
-    color: gray; /* Default color */
-  }
-  
-  /* Optional: add transition for smooth effect */
-  mat-icon {
-    transition: color 0.3s ease;
   }
