@@ -11,7 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrl: './profile-page.component.scss'
 })
 export class ProfilePageComponent implements OnInit {
-  @Input() userData: any = { Username: '', Password: '', Email: '', irthday: '' };
+  @Input() userData: any = { Username: '', Password: '', Email: '', Birthday: '' };
 
   user: any = {};
   username: string | null = null;
@@ -26,8 +26,7 @@ export class ProfilePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProfile();
-    //this.getMovies(); // Call getMovies() on component initialization
-    //this.getFavoriteMovies();
+    this.getFavoriteMovies();
   }
 
   public getProfile(): void {
@@ -68,22 +67,11 @@ export class ProfilePageComponent implements OnInit {
     });
   }
 
-  getFavoriteMovies(favoriteMovies: string[]): void {
-    if (favoriteMovies && favoriteMovies.length > 0) {
-      console.log('Favorite movie IDs:', favoriteMovies); // Log favorite movie IDs
-      this.favoriteMovies = []; // Clear previous data
-      
-      favoriteMovies.forEach((movieId: string) => {
-        this.fetchApiData.getOneMovie(movieId).subscribe(
-          (movie: any) => {
-            this.favoriteMovies.push(movie);
-          },
-          (error) => {
-            console.error('Error fetching movie details', error);
-          }
-        );
-      });
-    }
+  getFavoriteMovies(): void {
+    this.user = this.fetchApiData.getUser();
+    this.userData.favoriteMovies = this.user.favoriteMovies;
+    this.favoriteMovies = this.user.favoriteMovies || [];
+    console.log('Fav Movies in getFavoriteMovie', this.favoriteMovies);
   }
   
   isFav(movie: any): any {
@@ -95,19 +83,13 @@ export class ProfilePageComponent implements OnInit {
     }
   }
 
-  getFavorites(): void {
-    this.user = this.fetchApiData.getUser();
-    this.userData.favoriteMovies = this.user.favoriteMovies;
-    this.favoriteMovies = this.user.favoriteMovies;
-    console.log('Fav Movies in getFavMovie', this.favoriteMovies); 
-  }
 
   removeFavorite(movie: any): void {
     this.user = this.fetchApiData.getUser();
     this.userData.Username = this.user.Username;
     this.fetchApiData.removeFavoriteMovie(movie).subscribe((result) => {
       localStorage.setItem('user', JSON.stringify(result));
-      this.getFavorites();
+      this.getFavoriteMovies();
       this.snackBar.open('Movie has been deleted from your favorites!', 'OK', {
         duration: 3000,
       });
