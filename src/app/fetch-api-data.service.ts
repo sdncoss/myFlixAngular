@@ -49,14 +49,25 @@ export class FetchApiDataService {
     );
   }
 
+  
   /**
    * Calls to API for user to login endpoint
    * @param userDetails - User details for login
    * @returns {Observable<any>} - Observable for API response
    */
   public userLogin(userDetails: any): Observable<any> {
+    //{
+//     "Username": "userDemo1",
+//     "Password": "userDemo1", //"$2b$10$RVZVhB2gen5R6g/FB9jy6eZ57GIkL8N4qHaw7QxHIsNXPCWHHGR9u",
+//     "Email": "userDemo@email.com",
+//     "Birthday": "2020-05-05T00:00:00.000Z",
+//     "FavoriteMovies": [],
+//     "_id": "66ca47104f604ebf83762013",
+//     "__v": 0
+// }
     console.log(userDetails);
-    return this.http.post(apiUrl + '/login?Username=' + userDetails.Username + '&Password=' + userDetails.Password, userDetails).pipe(
+    // return this.http.post(apiUrl + '/login?Username=' + userDetails.Username + '&Password=' + userDetails.Password, userDetails).pipe(
+      return this.http.post(apiUrl + '/login', { Username: userDetails.Username, Password: userDetails.Password}).pipe(
       catchError(this.handleError)
     );
   }
@@ -233,9 +244,10 @@ export class FetchApiDataService {
       catchError(this.handleError)
     );
   }
-
   /**
    * Calls to API Delete User endpoint
+   * USE THIS LINK
+   * https://us04web.zoom.us/j/76744025963?pwd=SZS7PsZahiHMxbTzNeq1soEoqXqidu.1
    * @returns {Observable<any>} - Observable for the API response.
    */
   public deleteUser(): Observable<any> {
