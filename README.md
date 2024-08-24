@@ -14,7 +14,7 @@ The client-side for an app called myMovie based on its existing server-side code
 movie_api (https://github.com/sdncoss/movie_api)
 
 ## Link to app
-Hosted on GitHub: 
+Hosted on GitHub: https://sdncoss.github.io/myFlixAngular/ 
 
 ## Views
 ### Welcome View
