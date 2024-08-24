@@ -195,6 +195,6 @@ export class MovieCardComponent implements OnInit {
   }
   //redirects to the profile page
   redirectProfile(): void {
-    this.router.navigate(["/profile"]);
+    this.router.navigate(['/profile']);
   }
 }
