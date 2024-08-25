@@ -133,13 +133,8 @@ export class MovieCardComponent implements OnInit {
    * @param {any} movie  - Movie object to check.
    * @returns {boolean} - Boolean indicating whether the movie is a favorite.
    */
-  isFav(movie: any): any {
-    const MovieID = movie._id;
-    if (this.favoriteMovies.some((movie) => movie === MovieID)) {
-      return true;
-    } else {
-      return false;
-    }
+  isFav(movie: any): boolean {
+    return this.favoriteMovies.includes(movie._id);
   }
   /**
    * Function add / delete favoriteMovies by icon button
