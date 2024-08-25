@@ -3,6 +3,7 @@ import { FetchApiDataService } from '../fetch-api-data.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { ChangeDetectorRef } from '@angular/core';
 import { GenreInfoComponent } from '../genre-info/genre-info.component';
 import { DirectorInfoComponent } from '../director-info/director-info.component';
 import { SynopsysInfoComponent } from '../synopsys-info/synopsys-info.component';
@@ -41,12 +42,14 @@ export class MovieCardComponent implements OnInit {
    * @param {MatDialog} dialog - Material dialog service for opening dialogs.
    * @param {MatSnackBar} snackBar - Material snack bar service for displaying notifications.
    * @param {Router} router - Navigation between displaying pages.
+   * @param {ChangeDetectorRef} cdr - Change the heart for favorites UI.
    */
   constructor(
     public fetchApiData: FetchApiDataService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar,
-    public router: Router
+    public router: Router,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -143,10 +146,12 @@ export class MovieCardComponent implements OnInit {
    * @param {any} movie - Movie to toggle favorite icon for. 
    */
   toggleFavorite(movie: any): void {
-    const isFavorite = this.isFav(movie);
+    const isFavorite = this.isFav(movie._id);
     isFavorite
-      ? this.removeFavorite(movie)
-      : this.addFavorite(movie);
+      ? this.removeFavorite(movie._id)
+      : this.addFavorite(movie._id);
+
+      this.cdr.detectChanges();
   }
   /**
    * Function to add movie to favoriteMovies list
@@ -156,8 +161,8 @@ export class MovieCardComponent implements OnInit {
   addFavorite(movie: any): void {
     this.user = this.fetchApiData.getUser();
     this.userData.Username = this.user.Username;
+    this.favoriteMovies.push(movie._id);
     this.fetchApiData.addFavoriteMovie(movie).subscribe((result) => {
-      this.favoriteMovies.push(movie._id);
       localStorage.setItem('user', JSON.stringify(result));
       this.getFavorites();
       this.snackBar.open('Movie has been added to your favorites!', 'OK', {
@@ -173,6 +178,7 @@ export class MovieCardComponent implements OnInit {
   removeFavorite(movie: any): void {
     this.user = this.fetchApiData.getUser();
     this.userData.Username = this.user.Username;
+    this.favoriteMovies = this.favoriteMovies.filter(id => id !== movie._id);
     this.fetchApiData.removeFavoriteMovie(movie).subscribe((result) => {
       localStorage.setItem('user', JSON.stringify(result));
       this.getFavorites();

@@ -47,7 +47,7 @@ export class ProfilePageComponent implements OnInit {
     this.user = this.fetchApiData.getUser();
     this.userData.Username = this.user.Username;
     this.userData.Email = this.user.Email;
-    this.userData.Birthday = this.user.Birthday;
+    this.userData.Birthday = this.user.Birthday || Date;
     this.fetchApiData.getAllMovies().subscribe((response) => {
       this.favoriteMovies = response.filter((movie: any) => this.user.FavoriteMovies.includes(movie._id));
     });
