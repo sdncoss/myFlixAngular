@@ -134,21 +134,24 @@ export class MovieCardComponent implements OnInit {
    * @returns {boolean} - Boolean indicating whether the movie is a favorite.
    */
   isFav(movie: any): boolean {
-    const isFavorite = this.favoriteMovies.includes(movie._id);
-    console.log(`Checking if movie is favorite: ${movie.title} - ${isFavorite}`);
-    return isFavorite;
+    console.log('Movie passed to isFav:', movie);
+    if (!movie || !movie._id) {
+      console.error('Invalid movie object passed to isFav:', movie);
+      return false;
+    }
+    return this.favoriteMovies.includes(movie._id);
   }
   /**
    * Function add / delete favoriteMovies by icon button
    * @param {any} movie - Movie to toggle favorite icon for. 
    */
   toggleFavorite(movie: any): void {
-    const isFavorite = this.isFav(movie._id);
-    isFavorite
-      ? this.removeFavorite(movie._id)
-      : this.addFavorite(movie._id);
-
-    this.cdr.detectChanges();
+    if (!movie || !movie._id) {
+      console.error('Invalid movie object passed to toggleFavorite:', movie);
+      return;
+    }
+    const isFavorite = this.isFav(movie);
+    isFavorite ? this.removeFavorite(movie) : this.addFavorite(movie);
   }
   /**
    * Function to add movie to favoriteMovies list
