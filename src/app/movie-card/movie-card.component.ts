@@ -134,7 +134,9 @@ export class MovieCardComponent implements OnInit {
    * @returns {boolean} - Boolean indicating whether the movie is a favorite.
    */
   isFav(movie: any): boolean {
-    return this.favoriteMovies.includes(movie._id);
+    const isFavorite = this.favoriteMovies.includes(movie._id);
+    console.log(`Checking if movie is favorite: ${movie.title} - ${isFavorite}`);
+    return isFavorite;
   }
   /**
    * Function add / delete favoriteMovies by icon button
@@ -146,7 +148,7 @@ export class MovieCardComponent implements OnInit {
       ? this.removeFavorite(movie._id)
       : this.addFavorite(movie._id);
 
-      this.cdr.detectChanges();
+    this.cdr.detectChanges();
   }
   /**
    * Function to add movie to favoriteMovies list
